@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cesardiaz.backend.f1.backendf1.core.advice.ResourceNotFoundException;
 import com.cesardiaz.backend.f1.backendf1.projections.DriverDataView;
 import com.cesardiaz.backend.f1.backendf1.services.DriverService;
 import com.cesardiaz.backend.f1.backendf1.utils.DriverCommandEnum;
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,6 +38,7 @@ public class DriverController {
     }
 
     @PostMapping("/driver")
+    @PreAuthorize("hasAuthority('CREATE_DRIVER')")
     @Operation(summary = "Create a new F1 Driver.", description = "This endpoint save a new driver if does not exist.")
     public ResponseEntity<?> post(@RequestBody(required = true) Map<String, String> requestMap) {
         //TODO: process POST request
@@ -52,7 +55,8 @@ public class DriverController {
 
         Preconditions.checkNotNull(driverId);
 
-        return driverService.getDriver(driverId);
+        throw new ResourceNotFoundException(null);
+        // return driverService.getDriver(driverId);
     }
 
     @GetMapping("/drivers")

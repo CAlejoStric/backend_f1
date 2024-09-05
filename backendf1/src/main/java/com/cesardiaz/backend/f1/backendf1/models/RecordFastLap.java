@@ -1,6 +1,7 @@
 package com.cesardiaz.backend.f1.backendf1.models;
 
-import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,9 +20,9 @@ public class RecordFastLap extends AbstractPersistableCustom<Long>{
     @Column(name= "number_driver", columnDefinition="varchar(2)")
     private String recordFastLap;
     
-    @ManyToOne
-    @JoinColumn(name = "result_race_id", nullable = false)
-    private ResultRace resultRace;
+    // @ManyToOne
+    // @JoinColumn(name = "result_race_id", nullable = false)
+    // private ResultRace resultRace;
 
     @ManyToOne
     @JoinColumn(name = "circuit_id", nullable = false)
@@ -29,28 +30,30 @@ public class RecordFastLap extends AbstractPersistableCustom<Long>{
 
     @ManyToOne
     @JoinColumn(name = "code_value_seasson_id", nullable = false)
-    private CodeValue codeValueSesson;
+    private CodeValue codeValueSeasson;
     
     @Column(name= "status")
     private Integer status;
 
     @Column(name= "date_created")
-    @Temporal(TemporalType.DATE)
-    private Date datecreated;
+    private LocalDate datecreated;
     
     @Column(name= "date_updated")
-    @Temporal(TemporalType.DATE)
-    private Date dateUpdated;
+    private LocalDate dateUpdated;
 
-    public RecordFastLap(String recordFastLap, com.cesardiaz.backend.f1.backendf1.models.ResultRace resultRace,
-            Circuit circuit, CodeValue codeValueSesson, Integer status, Date datecreated, Date dateUpdated) {
+    private RecordFastLap(String recordFastLap, 
+            Circuit circuit, CodeValue codeValueSeasson, Integer status, LocalDate datecreated, LocalDate dateUpdated) {
         this.recordFastLap = recordFastLap;
-        this.resultRace = resultRace;
         this.circuit = circuit;
-        this.codeValueSesson = codeValueSesson;
+        this.codeValueSeasson = codeValueSeasson;
         this.status = status;
         this.datecreated = datecreated;
         this.dateUpdated = dateUpdated;
+    }
+
+    public static RecordFastLap instance(String recordFastLap,
+    Circuit circuit, CodeValue codeValueSeasson, Integer status, LocalDate datecreated, LocalDate dateUpdated){
+        return new RecordFastLap(recordFastLap, circuit, codeValueSeasson, status, datecreated, dateUpdated);
     }
 
     public String getRecordFastLap() {
@@ -60,15 +63,6 @@ public class RecordFastLap extends AbstractPersistableCustom<Long>{
     public void setRecordFastLap(String recordFastLap) {
         this.recordFastLap = recordFastLap;
     }
-
-    public ResultRace getResultRace() {
-        return resultRace;
-    }
-
-    public void setResultRace(ResultRace resultRace) {
-        this.resultRace = resultRace;
-    }
-
     public Circuit getCircuit() {
         return circuit;
     }
@@ -77,12 +71,12 @@ public class RecordFastLap extends AbstractPersistableCustom<Long>{
         this.circuit = circuit;
     }
 
-    public CodeValue getCodeValueSesson() {
-        return codeValueSesson;
+    public CodeValue getCodeValueSeasson() {
+        return codeValueSeasson;
     }
 
-    public void setCodeValueSesson(CodeValue codeValueSesson) {
-        this.codeValueSesson = codeValueSesson;
+    public void setCodeValueSesson(CodeValue codeValueSeasson) {
+        this.codeValueSeasson = codeValueSeasson;
     }
 
     public Integer getStatus() {
@@ -93,19 +87,19 @@ public class RecordFastLap extends AbstractPersistableCustom<Long>{
         this.status = status;
     }
 
-    public Date getDatecreated() {
+    public LocalDate getDatecreated() {
         return datecreated;
     }
 
-    public void setDatecreated(Date datecreated) {
+    public void setDatecreated(LocalDate datecreated) {
         this.datecreated = datecreated;
     }
 
-    public Date getDateUpdated() {
+    public LocalDate getDateUpdated() {
         return dateUpdated;
     }
 
-    public void setDateUpdated(Date dateUpdated) {
+    public void setDateUpdated(LocalDate dateUpdated) {
         this.dateUpdated = dateUpdated;
     }
 

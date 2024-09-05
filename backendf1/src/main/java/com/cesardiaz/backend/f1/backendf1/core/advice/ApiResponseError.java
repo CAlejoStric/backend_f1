@@ -16,5 +16,4 @@ public class ApiResponseError<T> {
 	private String error;
 	private T body;
 
-
 }

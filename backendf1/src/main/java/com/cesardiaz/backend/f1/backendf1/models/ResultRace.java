@@ -42,7 +42,7 @@ public class ResultRace extends AbstractPersistableCustom<Long>{
     @JoinColumn(name = "schedule_circuit_id")
     private ScheduleGranPrix scheduleGranPrix;
 
-    public ResultRace(Double points, Boolean dnf, Boolean dns, Boolean dnq, RecordFastLap recordFastLap,
+    private ResultRace(Double points, Boolean dnf, Boolean dns, Boolean dnq, RecordFastLap recordFastLap,
             LocalDate datecreated, LocalDate dateUpdated, DriverFormulaOne driver, ScheduleGranPrix scheduleGranPrix) {
         this.points = points;
         this.dnf = dnf;
@@ -53,6 +53,11 @@ public class ResultRace extends AbstractPersistableCustom<Long>{
         this.dateUpdated = dateUpdated;
         this.driver = driver;
         this.scheduleGranPrix = scheduleGranPrix;
+    }
+
+    public static ResultRace instance(Double points, Boolean dnf, Boolean dns, Boolean dnq, RecordFastLap recordFastLap,
+    LocalDate datecreated, LocalDate dateUpdated, DriverFormulaOne driver, ScheduleGranPrix scheduleGranPrix){
+        return new ResultRace(points, dnf, dns, dnq, recordFastLap, datecreated, dateUpdated, driver, scheduleGranPrix);
     }
 
     public Double getPoints() {
